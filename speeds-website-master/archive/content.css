@@ -1,0 +1,38 @@
+*
+{
+    font-family: 'Lato';
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0%;
+    color: white;
+    background: #2C2F39;
+}
+
+header
+{
+    background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(https://speedxx.github.io/speeds-website/imgs/attempt.jpg);
+    height: 125vh;
+    background-size: cover;
+    background-position: center;
+}
+
+a
+{
+    color: white;
+    font-family: 'Lato';
+}
+
+b
+{
+    float: right;
+    text-align: center;
+}
+
+b1
+{
+    float: left;
+    text-align: center;
+}

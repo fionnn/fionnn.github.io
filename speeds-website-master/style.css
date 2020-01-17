@@ -1,0 +1,45 @@
+body
+{
+    font-family: 'Raleway', sans-serif;
+    font-size: 50px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+}
+
+.center
+{
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.bottomtext
+{
+    -webkit-animation: bottomtext 5s infinite;
+    animation: bottomtext 5s infinite;
+}
+
+a
+{
+    color: #CCCCCC;
+    font-size: 50%;
+}
+
+@-webkit-keyframes bottomtext
+{
+    0% {color: #ff0000;}
+    10% {color: #ff8000;}
+    20% {color: #8000ff;}
+    30% {color: #ff0080;}
+    40% {color: #ff0000;}
+    50% {color: #ff8000;}
+    60% {color: #8000ff;}
+    70% {color: #ff0080;}
+    80% {color: #ff0000;}
+    90% {color: #ff8000;}
+    100% {color: #8000ff;}
+    110% {color: #ff0080;}
+}
