@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('sendButton');
 
     // Initialize a WebSocket connection (Replace 'wss://your-server-url.com' with your WebSocket server URL)
-    const socket = new WebSocket('wss://ws.postman-echo.com/raw');
+    const socket = new WebSocket('wss://socket.mirna.cloud/sadbird374/doggie');
 
     socket.onopen = (event) => {
         console.log('WebSocket connection established.');
