@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatContainer = document.getElementById('messages');
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
-    const socket = new WebSocket('wss://socket.mirna.cloud/lazyduck534/total:8080'); // Replace with your WebSocket server URL
+    const socket = new WebSocket('wss://socket.mirna.cloud/silverwolf338/ccccc'); // Replace with your WebSocket server URL
 
     socket.onopen = (event) => {
         console.log('WebSocket connection established.');
