@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const refreshButton = document.getElementById('refresh');
 
     // Connect to the external WebSocket server
-    const socket = new WebSocket('wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self'); // Replace with your actual server URL
+    const socket = new WebSocket('wss://ws.postman-echo.com/raw'); // Replace with your actual server URL
 
     socket.onopen = (event) => {
         console.log('WebSocket connection established.');
