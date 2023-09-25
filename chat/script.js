@@ -1,31 +1,46 @@
-// Function to send a message
-function sendMessage() {
-    const messageInput = document.getElementById("messageInput");
-    const nameInput = document.getElementById("nameInput"); // New name input field
-    const messages = document.getElementById("messages");
-    const message = messageInput.value.trim();
-    const name = nameInput.value.trim(); // Get the sender's name
+document.addEventListener('DOMContentLoaded', () => {
+    const chatContainer = document.getElementById('chat-container');
+    const messageInput = document.getElementById('message');
+    const sendButton = document.getElementById('send');
+    const refreshButton = document.getElementById('refresh');
 
-    if (message !== "" && name !== "") {
-        const messageElement = document.createElement("div");
-        messageElement.textContent = `${name}: ${message}`; // Include sender's name
-        messages.appendChild(messageElement);
-        messageInput.value = "";
-        messages.scrollTop = messages.scrollHeight;
+    // Connect to the external WebSocket server
+    const socket = new WebSocket('wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self'); // Replace with your actual server URL
 
-        // Send the message to the server using WebSocket
-        websocket.send(`${name}: ${message}`); // Include sender's name in the message
+    socket.onopen = (event) => {
+        console.log('WebSocket connection established.');
+    };
+
+    socket.onmessage = (event) => {
+        // Handle incoming messages
+        const message = JSON.parse(event.data);
+        appendMessage(message.text);
+    };
+
+    socket.onerror = (error) => {
+        console.error('WebSocket error:', error);
+    };
+
+    // Send a message
+    sendButton.addEventListener('click', () => {
+        const text = messageInput.value;
+        if (text) {
+            const message = { text };
+            socket.send(JSON.stringify(message));
+            messageInput.value = '';
+            appendMessage(text);
+        }
+    });
+
+    // Refresh button to get the latest messages
+    refreshButton.addEventListener('click', () => {
+        socket.send('refresh');
+    });
+
+    // Function to append a message to the chat container
+    function appendMessage(text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = text;
+        chatContainer.appendChild(messageDiv);
     }
-}
-
-
-// Connect to the WebSocket server
-const websocket = new WebSocket("wss://ws.postman-echo.com/raw");
-
-// Handle incoming messages from the server
-websocket.addEventListener("message", function (event) {
-    const messageElement = document.createElement("div");
-    messageElement.textContent = event.data;
-    document.getElementById("messages").appendChild(messageElement);
-    document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
 });
