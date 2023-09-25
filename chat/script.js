@@ -1,46 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const chatContainer = document.getElementById('chat-container');
-    const messageInput = document.getElementById('message');
-    const sendButton = document.getElementById('send');
-    const refreshButton = document.getElementById('refresh');
-
-    // Connect to the external WebSocket server
-    const socket = new WebSocket('wss://ws.postman-echo.com/raw'); // Replace with your actual server URL
-
+    const chatContainer = document.getElementById('messages');
+    const nameInput = document.getElementById('nameInput');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    
+    // Initialize a WebSocket connection
+    const socket = new WebSocket('wss://ws.postman-echo.com/raw'); // Replace with your WebSocket server URL
+    
     socket.onopen = (event) => {
         console.log('WebSocket connection established.');
     };
-
+    
     socket.onmessage = (event) => {
         // Handle incoming messages
         const message = JSON.parse(event.data);
-        appendMessage(message.text);
+        appendMessage(message.name, message.text);
     };
-
+    
     socket.onerror = (error) => {
         console.error('WebSocket error:', error);
     };
 
-    // Send a message
-    sendButton.addEventListener('click', () => {
+    // Define the sendMessage function
+    function sendMessage() {
+        const name = nameInput.value;
         const text = messageInput.value;
         if (text) {
-            const message = { text };
+            const message = { name, text };
             socket.send(JSON.stringify(message));
             messageInput.value = '';
-            appendMessage(text);
+            appendMessage(name, text);
         }
-    });
+    }
 
-    // Refresh button to get the latest messages
-    refreshButton.addEventListener('click', () => {
-        socket.send('refresh');
-    });
+    sendButton.addEventListener('click', sendMessage);
 
     // Function to append a message to the chat container
-    function appendMessage(text) {
+    function appendMessage(name, text) {
         const messageDiv = document.createElement('div');
-        messageDiv.textContent = text;
+        messageDiv.innerHTML = `<strong>${name}:</strong> ${text}`;
         chatContainer.appendChild(messageDiv);
     }
 });
