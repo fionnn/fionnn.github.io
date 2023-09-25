@@ -3,25 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.getElementById('nameInput');
     const messageInput = document.getElementById('messageInput');
     const sendButton = document.getElementById('sendButton');
-    
-    // Initialize a WebSocket connection
-    const socket = new WebSocket('wss://ws.postman-echo.com/raw'); // Replace with your WebSocket server URL
-    
+
+    // Initialize a WebSocket connection (Replace 'wss://your-server-url.com' with your WebSocket server URL)
+    const socket = new WebSocket('wss://ws.postman-echo.com/raw');
+
     socket.onopen = (event) => {
         console.log('WebSocket connection established.');
     };
-    
+
     socket.onmessage = (event) => {
         // Handle incoming messages
         const message = JSON.parse(event.data);
         appendMessage(message.name, message.text);
     };
-    
+
     socket.onerror = (error) => {
         console.error('WebSocket error:', error);
     };
 
-    // Define the sendMessage function
+    // Function to send a message via WebSocket
     function sendMessage() {
         const name = nameInput.value;
         const text = messageInput.value;
@@ -33,7 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    sendButton.addEventListener('click', sendMessage);
+    // Add event listener for the Send button
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    } else {
+        console.error("Element with ID 'sendButton' not found.");
+    }
 
     // Function to append a message to the chat container
     function appendMessage(name, text) {
